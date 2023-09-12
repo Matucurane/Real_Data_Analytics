@@ -1,0 +1,1367 @@
+---
+title: "Divvy Bike Share Capstone Project"
+author: "Osorio O. Matucurane"
+date: "2023-05-08"
+output:
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+  pdf_document:
+    toc: yes
+sutbtitle: Uncovering Insights for Data Driven  Marketing Strategy
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+![](https://raw.githubusercontent.com/labwilliam/data_analysis_projects/main/cyclistic_bike_share/scripts/logo.png){width="407"}
+
+# 1. PROJECT BACKGROUND
+
+This project is a requirement to Google Data Analytics Certificate
+explicitly for novices with no prior expertise. The case study seeks to
+consolidate the analytic skills developed by applying the typical
+procedures and methods trough a systematic data analytic workflow and
+using the most appropriate tools. The dataset with key usage variables
+is collected by third party and made available publicly. Cyclistic is a
+fictitious company that runs the Divvy bike sharing business. Its
+marketing department identifies a potential business opportunity to
+increase the business revenues and engages the data analytics team to
+uncover and reveals evidences and insights on the available bike sharing
+usage data to ultimately support a a data driven decision making.
+Inferential statistics (hypothesis testing) is beyond the scope of this
+project. A great deal time has been delving and diving deep to master
+the grammar of data manipulation, the grammar of graphics and the art of
+data visualization. At the end only to realize that I just scratched the
+surface of R. The challenge ahead on my journey as aspiring data
+analytics lies on clinging to string manipulation and getting grips at
+functional programming before I become R Power User.
+
+![docking
+station](https://d21xlh2maitm24.cloudfront.net/chi/Detail-Shot.jpg?mtime=20170626123100){width="576"}
+
+# 2. BUSINESS PROFILE AT A GLANCE
+
+2.  Cyclistic is a bicycle renting business in Chicago , with an
+    innovative concept of bike sharing. It delivers a great value to the
+    customer basis serving.\
+    -   Micromobility solution with healthy associated benefits from
+        cycling in a regular basis - Targeting Chicagoan commuters to
+        work, school, social encounter - visitors to unlock Chicago -
+        Runs a a fleet of Over 5 800 bikes - scattered network of 682
+        stations/kiosks to unlock the bikes from and return
+
+![Divvy
+bikes](https://www.researchgate.net/profile/Alessio-Franconi/publication/334766629/figure/fig2/AS:981691321573377@1611064858236/Divvy-bikes-Chicagos-bike-share-system.png){width="537"}
+
+## Cyclist offer essentially 3 products with distinct features
+
+-   Bikes rented, shared and charged on hourly basis ON HOUR BASIS
+
+-   Bike unlocked at a station and returned at another station at the
+    customer's convenience
+
+-   The are two customers segments
+
+-   Casual riders - day pass-single one or multiple trips
+
+-   Subscribers - annual membership
+
+![](https://311.chicago.gov/servlet/rtaImage?eid=ka0t00000004aSg&feoid=00Nt0000000qI93&refid=0EMt0000003kjr9)
+
+![](http://3.bp.blogspot.com/-kmtMt393Qbg/UaFWI75A_1I/AAAAAAAACM4/m__4nDlsYHI/s1600/Screen+Shot+2013-05-25+at+7.06.44+PM.png){width="317"}
+
+# 3. BUSINESS CASE IDENTIFICATION
+
+The company is setting to increase the overall business performance
+specially the revenue from non subscribed casual riders. It is believed
+that this customer segment has key customer offering a great deal of
+potential to add value to the company and there should be endeavored to
+bring a board as much as possible annual based membership. However,
+there is information gap concerning the records about the critical
+factors/variables on how the casual group and subscribed members uses
+the bike sharing service. Here comes the challenge to design a solid
+well founded strategy to target the casual riders to adhere to the
+annual based package. With that challenge comes a long the need to
+gather evidences, meaningful and quality information to back up the
+decision making for impactful results. This project report uses data
+collected in 2022, analysis data to uncover key insights,pattern and
+trends on the service usage and communicate the findings in an easy,
+engaging and persuasive way to the key stakeholder.
+
+# 4. ASSURING DATA QUALITY
+
+The quality of data by large determine the quality of the findings. The
+goal to have high quality data is to make empowered, informed and data
+driven decisions in order to achieve improved business performance. In
+order to restrain costly mistakes and false conclusions we have to
+ensure that data meets the data quality standards. Like it is commonly
+cited in data analytics and data science resources "garbage in garbage
+out". We assess the quality of our dataset against the measures or
+dimensions of data quality. Each dimension plays a critical role in
+ensuring the overall quality of data. ![data
+quality](https://profisee.com/wp-content/uploads/2020/07/DataQualityRulesHub.png){width="268"}
+
+## 4.1 RELIABILITY
+
+Our data is reliable and accurate being collected by a credible source
+using advanced data collection technology
+
+## 4.2 ORIGINALITY
+
+Our dataset was accessed from the original source, as first recorded
+data points, therefore no reasonable data quality issues on this ground
+
+4.3 COMPREENHENSIVENESS
+
+We have fair and relatively comprehensive and useful information . With
+available data we are able to compare the two groups as far as the usage
+is concerned. But not the preferences and choices they make to adhere
+and buy one or another product/service. This is by far determined and
+controlled by other variables like socio economic and demographics. So,
+well founded and substantiated recommendations would be hard to be
+drawn.
+
+## 4.4. CURRENCY
+
+This is a time dimension (also referred to as timeliness) .. Our data is
+sufficiently up to date for its intended use.
+
+## 4.5 CITED
+
+This criteria is satisfied. In addition, we also keep abreast that the
+dataset sample should meet and clear the requirements. It seems that our
+records covers the entire population and after some data cleaning chores
+we should be left of dataset that does not compromises the
+representativity and assure unbiasness.
+
+# 5. PRELIMINARY DATA PREPARATION
+
+# 5.1 Preliminary data preparation
+
+With primarily relied on the great features offered by MS Power Query to
+get familiarized with the dataset and for each file we easily carried
+out the following preliminary transformations: - column profile(count,
+distinct, unique, min, max, empty string) - Column quality (validity,
+error, percentage) - ride Date, bike_type, ride_type, station name -
+Splitting datetime (time stamp) into date and time columns - Computing
+the trip time duration based on the ended time and started time
+variables
+
+## 5.2 Dataset conformity with tidy format
+
+Tidy data is a concept from Hadley Wickham's 2014 paper Tidy Data Tidy
+datasets are easy to manipulate, model and visualize, are rectangular
+data and have a specific structure: - Every row is an observation, -
+Every column represents variables and - Every entry into the cells of
+the data frame are values It is worthy quoting "Happy families are all
+alike, but every unhappy family is unhappy in its own way." \~ Leo
+Tolstoy "Tidy datasets are all alike, but every messy dataset is messy
+in its own way." \~ Hadley Wickham
+
+![TIDY
+DATA](https://www.openscapes.org/img/blog/tidydata/tidydata_1.jpg){width="592"}
+
+# 6. DATA ANALYSIS WORKFLOW
+
+Google offers a well-defined data workflow which acts as a set of
+guidelines for planning, organizing, and implementing data analytics
+projects. The Google six steps are: - Ask - Prepare. - Process -
+Analyze - Share. - Act This workflow is self explanatory. Noticeably,
+the process outlined is linear, however, in many cases the process is
+iterative, requiring multiple stages to be repeated and revisited. Our
+Project is being guided by the flow bellow. ![typical data analytics
+workflow](https://dpbnri2zg3lc2.cloudfront.net/en/wp-content/uploads/old-blog-uploads/the-data-analysis-process-1.jpg)
+
+# 7. GETTING DATA
+
+The data set comes in 12 separated files on month basis, with individual
+Divvy bike sharing trips, including the origin, destination, and time
+stamps for each trip. Source:
+<https://divvy-tripdata.s3.amazonaws.com/index.html> We import and load
+the data into RStudio where we set a R project. Bellow we load the
+package collection will be used during the entire data analysis
+workflow - useful packages/packages
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
+library(knitr)
+library(dplyr)
+library(readr) 
+library(purrr)
+library(magrittr)
+library(knitr)
+library(gt)
+library(scales)
+library(ggthemes)
+library(ggplot2)
+library(tidyr)
+library(forcats)
+library(pandoc)
+library(skimr)
+library(summarytools)
+library(RColorBrewer)
+library(viridis)
+library(flextable)
+library(janitor)
+```
+
+We import all file at once grammatically instead of one at time. There
+is claim holding that if a task is to be repeat, then it is absolutely
+the right task the computer is designed to perform and it is does
+efficiently. There are ways to get the cat skinned, akin we find may
+ways to import multiple files into R. The best method so far is fread()
+from data.table package. As a matter of taste, we will go with
+read_csv() from Tidyverse ecosystem, as it gives an argument to specify
+the column types. This should free us up from the tedious work of
+converting the date variables with POSIXct and POSIXlt that would
+otherwise have been read and imported as character type.
+
+```{r load_datbl, eval=FALSE, cache=TRUE, cache.lazy=FALSE, include=FALSE, warning=FALSE, message=FALSE}
+# library(data.table)
+# setwd("C:/Users/USER/Documents/DataAnalytics/Projects/CiclistBikeShare")
+#  files_folder <- "C:\\Users\\USER\\Documents\\DataAnalytics\\Google_Capstone_Project\\data\\Data_RStudio" # setting the path
+# 
+#  data_list <- list.files(path = files_folder ,
+#  pattern = "*.csv", full.names = TRUE)
+# 
+#  datab <- data_list%>%
+#              lapply(fread, sep = ",") %>%
+#              rbindlist()
+
+
+```
+
+```{r, eval = FALSE, cache=TRUE, cache.lazy=FALSE,include=FALSE, warning=FALSE, message=FALSE }
+# load("C:/Users/USER/Documents/DataAnalytics/Projects/CiclistBikeShare/bsfinal_rmd.RDATA")
+```
+
+```{r load_dataset, cache=TRUE, cache.lazy=FALSE, include=FALSE, warning=FALSE, message=FALSE}
+ 
+library(tidyverse)
+ my_dir <- "C:/Users/USER/Documents/DataAnalytics/Google_Capstone_Project/data/Data_RStudio"
+ all_files <- list.files(path = my_dir, pattern = "*.csv", full.names = TRUE) # combine all 12 files
+bs_01 <- all_files %>%map_df(~read_csv(., col_names = TRUE,
+    col_types = cols(
+      started_at = col_datetime(format = "%m/%d/%Y %H:%M"),
+      ended_at = col_datetime(format = "%m/%d/%Y %H:%M"),
+      started_ride_date = col_date(format = "%m/%d/%Y"),
+      ended_ride_date = col_date(format = "%m/%d/%Y")
+      # rideable_type = col_factor(levels = c("electric_bike", "classic_bike","docked_bike")),
+      # member_casual = col_factor(levels = c("casual", "member"))
+    )
+  )) 
+```
+
+read_csv() guesses the variable classes, so specify the date classes
+using the `col_types` argument Moving on and using the **str()**
+function we cn get a compactly display of the the internal structure of
+an R object.
+
+```{r data_str}
+bs1 <- bs_01
+str(bs1)
+```
+
+# 8. DATA EXPLORATION
+
+This first stage we exploring data mainly column wise, fixing few issues
+and get data ready for data cleaning in the following stage,
+
+## 8.1 Getting a quick sense of the data object and dimension of the imported dataset
+
+```{r dataset_sample}
+# randomm sample 
+bs1 %>% 
+  sample_n(10)  
+ 
+```
+
+## 8.2 Validating Data Type Objects
+
+Data types matters a great deal. The operations we can perform on a
+column depend so much on its "type" (numeric, character/string). Lets
+revisit the common type of operators. - arithmetic operators -
+calculations using Arithmetic operators to be performed on values. -
+relational operators - for assignment and enable comparisons to be made.
+They are used in condition testing - logical operators - Logical
+operators are used to combine relational operators to give more complex
+decisions.
+
+## 8. 3 Converting character type to factor data type objects
+
+This is specially useful for both ordinal and nominal variables with
+limited categories since it is easy to hunt and spot entry related
+errors. easy data verification and validation. The variables bike type
+and customer type are suitable candidates.
+
+-   Converting using R base and cross checking with sapply()
+
+```{r data_type, include=FALSE, warning=FALSE, message=FALSE}
+bs2 <- bs_01
+bs2$rideable_type <- as.factor(bs1$rideable_type)
+bs2$member_casual <- as.factor(bs1$member_casual)
+sapply(bs2, class ) # verification
+```
+
+## 8.4 Parsing Date Time
+
+We have touched this step of converting date columns to Date class Date
+type object class is tricky. Stored in the program memory (under the
+hoody) as numeric, often is imported as character. working with dates
+and times in base R, can be daunting, a bit cumbersome and clumsy.
+lubridate adopts a more intuitive approach to parsing dates and times.
+Some useful functions to coerce date character to date class include
+ymd(), dmy() and ydm(). We found it handy with Power Query tool before
+importing the dataset
+
+## 8.5 Extracting Date Components From Datetime Variable
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+bs2 <- bs2 %>%
+  mutate(
+    ride_year = lubridate::year(started_ride_date),
+    ride_month = lubridate::month(started_ride_date, label = TRUE, abbr = TRUE), # month in year
+    ride_weekday = lubridate::wday(started_ride_date, label = TRUE, abbr = TRUE) # day of week (name)
+  )
+names(bs2)
+```
+
+## 8.6 Renaming Variables
+
+For a better syntax and good readability we change/update old column
+name with new column name using rename() function. We focus on those
+variables of interested that we will be playing arroynd with them in our
+journey of revealing interesting varition pattern and trends.
+
+-   Syntax: my_dataframe %\>% rename(new_column_name = old_column_name)
+
+```{r rename_col}
+bs3 <- bs2 %>%
+  dplyr::rename(
+    "departure_station" = "start_station_name",
+    "arrival_station" = "end_station_name",
+    "departure_time" = "started_ride_time",
+    "arrival_time" = "ended_ride_time",
+    "ride_bike" = "rideable_type",
+    "ride_segment" = "member_casual",
+    "ride_date" = "started_ride_date",
+    "ride_time" = "ride_minutes"
+  )
+names(bs3) # cross checking
+```
+
+## 8.7 Reordering
+
+```{r reoring, include=FALSE}
+bs3 <- bs3 %>% select(ride_id, ride_bike, ride_segment, ride_time, ride_date,departure_station, arrival_station, everything())
+
+names(bs3) # cross checking
+```
+
+# 9. DATA CLEANING
+
+This is one of the crucial and intricate stage of data analytical
+workflow. Once we have aligned the data object types and the desirable
+variable names, we move to explore and address data entry (observations)
+at row level in order to get the dataset in the correct and desirable
+format for efficient processing. This consists essentially of
+identifying, correcting, or removing inaccurate raw data for downstream
+purposes. In addition, we deal with the typical data issues - Duplicated
+records - Recording - Missing values - Unusual values most known as
+outliers What typically data cleaning means is partly illustrated
+bellow. The bottom line is to get data formatted in the way the computer
+reads, understands, computes and we get consistent outcome.
+
+![Illutrastion of data
+cleaning](https://epirhandbook.com/en/images/data_cleaning.png){width="550"}
+
+## 9.1 Overview of the Dataset
+
+It is widely claimed that plotting the data, specially the numeric
+continuous should be the very first step when getting a new dataset. It
+potentially offers a better picture of data distribution, variation and
+a quick catch of potential outlier. In our case does not give a pretty
+picture due to little variation and the excessive size of the dataset.
+But before visual exploration,let's get a glance or glimpse at our data
+set with a summary table. There is a bunch of helpful packages with
+summary table functions from R base describe(), dplyr summary (),
+dlookr, Mice, Smir skim(), psych, Mosaico, summarytools, NIAR, to
+janitor just to mention fewers. The choice is a matter of taste, but
+also the detailed information we can get from.
+
+## 9.2 Describing data with Summary Table
+
+This is an analytical way to get an overview of the entire dataframe. We
+can use the function dfsummary() from the package summarytools Columns
+are summarised by class/type such as character, factor and numeric. We
+select 6 variables of interest: - ride_segment - ride_bike - ride_time -
+departure_station - arrival_station - ride_date. We will include the
+identifier ride id just to control for dupes (dupplicated entries)
+
+-   using dfsummary() to summarize and visualize the dataset
+
+```{r dfsummary, cache=TRUE}
+diagnosis <- bs3 %>% select(ride_id, ride_segment, ride_bike,ride_time, departure_station, arrival_station, ride_date)
+print(dfSummary(diagnosis, graph.magnif = 0.75), 
+method = 'render')
+```
+
+From the output, get the account for the following data issues:
+
+1.  duplicates
+
+2.  distinct values
+
+3.  missing values
+
+4.  distribution (schethes of bar charts and histogram)
+
+5.  frequency (cat variables)
+
+6.  summary statistics (five numbers) quantitative continuous variables
+
+This looks pretty, we only miss the explicit account of outliers, but
+the range offers some valuable hints
+
+In a nutshell, from the summary output we spotted issues with three
+variables:
+
+1.  ride time with implausible extreme values-
+
+2.  departure station with missing values
+
+3.  arrival station with missing values
+
+## 9.4 Dealing with the messy
+
+### 9.4.1 Duplicated records
+
+Duplicate observations should be identified and removed The Based on the
+table summary, there are
+
+**Dimensions**: 5667717 x 7
+
+unique observations/cases. Does this match and corresponds to the total
+number of observations in the dataset?
+
+```{r}
+dim(bs3)
+```
+
+#### 9.4.1.1 display all duplicate rows
+
+Some useful functions to deal with duplicate rows include duplicated(),
+unique() and distinct().
+
+### 9.4.2 Categorical Variable Flawed Values
+
+We use frequency tables to examine or diagnosis the possible
+inconsistencies that can result from incorrect entries or typo. Our
+explicitly categorical variables are trouble free as given in the above
+summary table.
+
+9.4.2.1 Docking Stations
+
+This is not worthy to set as a categorical variable given that in its
+nominal variable each value is treated as character/string and cant be
+meaningfully grouped. We will examine the frequency( how many times the
+same value occur) and seek to catch some pattern. How may unique bike
+departure station we have and are expected? Can we match it? All in all
+the network consist of 692 docking stations. Is there a meaningful way
+to group the stations?
+
+-   Distinct dock station
+
+```{r}
+bs3 %>% select(departure_station) %>% 
+  drop_na(departure_station)%>% 
+  count()  
+  
+```
+
+It seems that we have limited options to scan and detect irregularities
+with the charcater variables with no levels. Let's look at the
+frequencies .
+
+-   tabyl () function is used for easy tabulations (frequency tables and
+    crosstabs)
+
+```{r, include=FALSE}
+library(janitor)
+bs3 %>% tabyl(departure_station) %>% 
+  adorn_pct_formatting(digits =2,affix_sign=TRUE)
+
+```
+
+Data entry of lower frequencies are suspicious and on business grounds
+they add no value. These observations are possibly caused by data
+recording errors. We might have the data with mixed cases (lower and
+upper), in which case R treat them differently. Exploring text data,
+using functions like filter(), str_detect() and count() to screen and
+catch data entry based on partial match or common pattern. This is
+beyond the scope of this project and we will not delve into.
+
+We decide to remove values of extremely low frequency on both variables
+(frequency less than 1%)
+
+#### 9.4.2.2 Removing insignificant marginal values
+
+```{r}
+ library(dplyr)
+
+ bs4 <- bs3 %>%
+  dplyr::group_by(departure_station, arrival_station) %>%
+  dplyr::mutate(
+    cnt = n(),
+    percnt = round(cnt / sum(cnt) * 100, 2)
+  ) %>%
+  ungroup() %>%
+  dplyr::filter(percnt >= .01) %>%
+  dplyr::arrange(percnt)
+```
+
+### 9.4.3 Dealing with missing value
+
+Missing values have to be identified, examined and take decision if they
+are kept, omitted/removed or replaced and if replaced what method to be
+used.
+
+#### 9.4.3.1 Where are missing values
+
+From our summary table, we have missing values on two variables. Cross
+checking with is.na() and sum() functions
+
+```{r}
+sum(is.na(bs4$departure_station))
+```
+
+```{r}
+sum(is.na(bs4$arrival_station))
+```
+
+#### 9.4.3.2 What to do with the missing values
+
+From the outset it important to understand how the missing values are
+coded and remarkably differentiated from other coded values like none,
+empty or NAN. In R, **missing values are represented by the symbol NA
+(not available).** On the other hand, we have NULL, which represents
+that the value in question simply doesn't exist, rather than being
+existent but unknown. In dealing with missing values, Greg Martin
+suggests that they are examined, trying to understand the pattern of its
+occurrence (the missiness). Are missing values taking place
+systematically or randomly? Are they associated with other variables? In
+our case, we should expect that the missing values are associated with
+long trip duration suggesting that the bikes went missing (stolen). In
+that event, the ride end time should also be missing (unreported). But
+this de not hold at all, as we have complete records for the variable
+start and end time.
+
+All what we find is that missing values at start station are associated
+with missing values of start station id.
+
+```{r}
+library(dplyr)
+  bs4 %>% select(departure_station, arrival_station, start_station_id, end_station_id, start_lat, end_lat, start_lng, end_lng) %>% 
+ dplyr:: filter(is.na(departure_station)|is.na(arrival_station)) %>%
+  dplyr::count(is.na(departure_station) == is.na(start_station_id)) 
+```
+
+We could drop or remove the missing values, but we decide to keep them
+to avoid losing data points from variables of interest (customer group,
+date, ride time) associated with those rows where they occur.
+
+### 9.4.4 Dealing with implausible out of boundaries values
+
+observations lying far away from others are typically unusual and often
+considered outliers. Dealing with outliers is a highly contentions issue
+among statisticians , data scientists and data analyst. It is worthy to
+highlight tereason why outliers matter a great eal and attract hot
+debate. As far as the methods and techniques used in descriptive and
+inferential statistics hinge and grounded on the distribution
+assumptions, outliers may impact negatively on results and misleading or
+flawed findings. We don't take outliers lightly. As a matter of fact, in
+business environment the considered outliers could be a niche or market
+segment with specific needs to be catered and deserving especial
+attention. It could be the of the known principle of 80:20 . We will
+explore the distribution and pattern of the numerical continuous
+variables trough the scatterplot, boxplot and histogram and match with
+the cyclistic core business - renting bikes on shared basis for micro
+mobility.
+
+#### 9.4.4.1 Values out of the expected range
+
+```{r}
+bs4 %>% select(ride_segment, ride_time) %>% 
+      group_by(ride_segment ) %>% 
+      dplyr::summarize(min = min(ride_time),
+                max = max(ride_time)) %>% 
+      ungroup() 
+```
+
+The maximum values are way out for a typical trip duration in a micro
+mobility service . This is supported by the literature reviews.
+Cyclistic rent bikes up to 45 mints for both casual and subscriber
+members. The negative values are indisputably implausible.
+
+```{r}
+bs5 <- bs4 %>% filter(ride_time > 0) # dropping negative trip duration records
+summary(bs5$ride_time) # verification
+```
+
+#### 9.4.4.2 Visual Exploration - Extremely low values
+
+Trips that last less than 60 seconds should be suspicious and worthy
+some attention. In fact they should occur where the bikes are checked
+out and returned back to the same station, being bikes with some
+problems and unable to start a trip.
+
+```{r, warning=FALSE, message=FALSE}
+ bs5 %>%
+  dplyr::select(ride_segment, ride_time) %>%
+  filter(ride_time < 5) %>%
+  ggplot(aes(x = ride_time, col = ride_segment)) +
+  geom_freqpoly(size = 1.5, binwidth = 0.02) +
+   theme_classic() +
+   ggtitle("Visual Exploration of Data")
+   
+  
+```
+
+Note: The expected relationship is spotted, the longer the trip, there
+are lesser returns to the same station. We set the threshold of 1.0 as
+the minimum ride length accepted to travel from one station to another.
+
+```{r}
+bs6 <- bs5 %>% 
+  filter(ride_time > 1.0)
+summary(bs6$ride_time)
+```
+
+#### 9.4.4.3 Visual Exploration of Extremely high values with scatter plot
+
+Scatter points helps to visualize and easily spot the pattern and trend
+of data points. The geom_jitter() offer a greater visibility (less over
+plotting) by adding random noise to both the width and height of each
+point.
+
+```{r jitter, cache=TRUE}
+expl_scatter <- bs6 %>%
+  select(ride_segment, ride_date, ride_time) %>%
+  ggplot(aes(x = ride_date, y = ride_time, col = ride_segment)) +
+  geom_jitter(size = 0.25, width = 0.15, height = 0.2, alpha = .5) +
+  facet_wrap(~ride_segment, nrow = 2, scales = "free") +
+  theme_wsj()+
+  labs(title = "exploratory scatter plot") 
+
+expl_scatter + 
+  scale_y_continuous(labels = number_format(scale = 1e-3, suffix = " K"))
+                       
+
+
+
+```
+
+What panes from the scatter plot?
+
+-   clear points falling away from the most common values .
+
+-   casual riders with rid time above 1000 mints
+
+-   annual members with ride tie above 500 mints
+
+    For a better picture,we set these limts in a histogram
+
+#### 9.4.4.4 Visual Exploration of Extremely high values with histogram
+
+A numeric variable is typically mapped to the x-axis. Then, the x-axis
+is divided up into equally sized sections, which we call "bins or
+buckets", ranging from the lowest to the highest value for the
+variable,then we count the number of observations in each bin and plot a
+bar for each bin. The length of the bin corresponds to the count of the
+observations in that bin.
+
+```{r freqpol}
+freqpol <- bs6 %>% select(ride_segment, ride_time) %>%
+  ggplot(aes(x = ride_time, fill = ride_segment, color = ride_segment)) +
+  geom_freqpoly(size = 0.75) +
+   theme_clean()+theme(legend.position = "top")+
+  labs(
+    title = "Exploring the Data Distribution  log transform",
+    subtitle = "Decteting outboundaries data points"
+  ) +
+  scale_x_log10(n.breaks = 8, 
+                labels = number_format(scale = 1e-3, suffix = " k"))
+
+library(plotly)
+ggplotly(freqpol)
+
+ 
+```
+
+```{r, include=FALSE, eval=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+bs5 %>%filter(ride_time < 2) %>%
+  dplyr::count(cut_width(ride_time, 0.02)) %>% 
+  arrange(desc(n))
+```
+
+#### 9.4.4.5 Removing potential outliers
+
+Ideally outliers are set to missing values instead of dropping them. Our
+datset is suficiently large to pt other way arround.
+
+-   Setting the time limit
+
+Based on our distribution, between 25% and 75% of our observations, the
+riding time is less than 30 mints. However, there is significant portion
+of riders beyond that interval and we may want to consider them in our
+analysis for business decision making.
+
+```{r remove_outlier, warning=FALSE, message=FALSE}
+density_plot <- bs6 %>% select(ride_segment, ride_time) %>% 
+ggplot(aes(x = ride_time,   color = ride_segment))+ 
+ geom_histogram(aes(y=..density..), fill = "white", alpha = 0.2, position = "dodge" )+
+geom_density(lwd = 1.2,  linetype = 2)+
+scale_x_log10(limits =c(10^0, 10^2.3835861)) +
+labs(title = "Distribution of riders with log transform",
+          subtitle = "Limiting the trip duration to 241.8723 minutes",
+     x = "Trip duration (minutes)") +
+  theme_clean() +theme(legend.position = c(.8,.9))
+
+library(plotly)
+ggplotly(density_plot)
+
+```
+
+```{r}
+bs7 <- bs6 %>% 
+  filter(ride_time <= 10^2.3835861)
+summary(bs7$ride_time)
+```
+
+#### 9.4.4.7 Examining the ride date variable
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+summary(bs7$started_at)
+summary(bs7$ended_ride_date)
+summary(bs7$ride_date)
+
+```
+
+```{r}
+bs8 <- bs7 %>% filter(ended_ride_date <= as.Date("2022-12-31"))
+summary(bs8$ended_ride_date)
+```
+
+## 9.5 Final verification of the dataset
+
+### 9.5.1 Keeping the variables of interest
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+names(bs8)
+```
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+bs9 <- bs8 %>% select(-c(ride_id, started_at, ended_at,start_station_id,
+end_station_id, start_lat, start_lng,  end_lat, end_lng, ride_year, ride_length, cnt, percnt )) 
+names(bs9)
+```
+
+### 9.5.2 Verification and validation
+
+```{r verific, cache=TRUE}
+verf <- bs9 %>% select(ride_segment, ride_bike, ride_time, departure_station, arrival_station, 
+                       departure_station, arrival_station, ride_date)
+print(dfSummary(verf, graph.magnif = 0.75), 
+method = 'render')
+```
+
+### 9.5.3 Dimensions of the final dataset
+
+```{r}
+dim(bs9)
+```
+
+# 10. Data Wrangling
+
+## 10.1 Grouping days into categories
+
+```{r weekdays, include=FALSE, warning=FALSE, message=FALSE}
+weekends <- c("Sun", "Sat")
+   bs9 %>% 
+  mutate(ride_days = as.factor(if_else(
+    ride_weekday %in% weekends, "weekend", "businday"
+  )), .after = ride_weekday) %>% 
+     names() # verification
+  
+```
+
+```{r}
+bs10 <-  bs9 %>% 
+  mutate(ride_days = as.factor(if_else(
+    ride_weekday %in% weekends, "weekend", "businday"
+  )), .after = ride_weekday)
+```
+
+## 10.2 Adding Seasons Variable
+
+-   In Chicago, the summers are warm, humid, and wet;
+-   the winters are freezing, snowy, and windy; and it is partly cloudy
+    year round.
+-   January tends to be the coldest month, but also the snowiest month
+    of the year.
+
+```{r seasons, include=FALSE, warning=FALSE, message=FALSE}
+Spr <- c("Mar", "Apr", "May")
+  Sum <- c("Jun", "Jul", "Aug")
+  Aut <- c("Sep", "Oct", "Nov")
+  winter <- c("Dec", "Jan", "Feb" )
+```
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+ bs10 %>%
+  mutate(us_seasons = as.factor(case_when(
+    ride_month %in% Spr ~ "spring",
+    ride_month %in% Sum ~ "summer",
+    ride_month %in% Aut ~ "fall",
+    TRUE ~ "winter"
+  )), .after = ride_month) %>%
+  names() # verification
+```
+
+```{r, include=FALSE, warning=FALSE, message=FALSE}
+bs10 <- bs10 %>%
+  mutate(us_seasons = as.factor(case_when(
+    ride_month %in% Spr ~ "spring",
+    ride_month %in% Sum ~ "summer",
+    ride_month %in% Aut ~ "fall",
+    TRUE ~ "winter"
+  )), .after = ride_month)
+levels(bs10$us_seasons)
+```
+
+# 11 DATA SUMMARIZING
+
+## 11.1 Numerical variables
+
+### 11.1.1 Key descriptive indicators
+
+```{r sum_nueric}
+sumar_stat1 <- bs10 %>%
+  select(ride_segment, ride_time) %>%
+  dplyr::group_by(ride_segment) %>%
+  dplyr::summarise(
+    Total_rides_mints = scales::comma(n()),
+    rides_hours = n() / 60,
+    Min_time = min(ride_time),
+    Quantile_1 = quantile(ride_time, probs = 1 / 4),
+    Average_time = format(mean(ride_time), digits = 2, nsmall = 2),
+    Median = median(ride_time),
+    Quantile_3 = quantile(ride_time, probs = 3 / 4),
+    Max_time = max(ride_time)
+  ) %>%
+  mutate(Share = scales::percent(rides_hours / sum(rides_hours)))
+gt(sumar_stat1)
+```
+
+## 11.2 Summarizing Categorical Variables
+
+-   Tabulation ride_segment and bike type
+
+```{r sum_cat1}
+library(flextable)
+sumar_cat1 <-   bs10 %>% 
+  select(ride_segment, ride_bike) %>% 
+  janitor::tabyl(ride_segment, ride_bike) %>%
+    adorn_percentages("col") %>%
+    adorn_pct_formatting(digits = 2) %>%
+    adorn_ns() %>% 
+    flextable() 
+sumar_cat1
+```
+
+### bike type and ride days
+
+```{r sum_cat2}
+ library(flextable)
+ sumar_cat2 <-   bs10 %>% 
+  select(ride_segment, ride_days) %>% 
+  janitor::tabyl(ride_segment, ride_days) %>%
+    adorn_percentages("col") %>%
+    adorn_pct_formatting(digits = 2) %>%
+    adorn_ns() %>% 
+    flextable() 
+  
+  sumar_cat2
+```
+
+### Seasons performance
+
+```{r}
+library(flextable)
+sumar_cat3 <- bs10 %>% janitor::tabyl(ride_segment, us_seasons) %>%
+    adorn_percentages("row") %>%
+    adorn_pct_formatting(digits = 2) %>%
+    adorn_ns() %>% 
+    flextable() 
+  
+  sumar_cat3
+```
+
+### Ranking departure stations
+
+```{r rank_stations}
+library(dplyr)
+
+sumar_cat4 <- bs10 %>% 
+  dplyr::select(ride_segment, ride_time, departure_station) %>%
+  drop_na(departure_station) %>% 
+       group_by(ride_segment, departure_station) %>%
+   dplyr::summarise(Total_cnt = n(),
+              trip_duration = sum(ride_time),.groups = "drop")%>%
+   dplyr::mutate( Top_rides = round((Total_cnt/sum(Total_cnt)*100), 2),
+            Top_trips = round((trip_duration/sum(trip_duration)*100), 2)) %>% 
+    #arrange(desc(Top_stations)) %>% 
+    slice_max(order_by = Top_trips, n= 10) 
+  
+  gt(sumar_cat4)
+```
+
+-   Ranking arrival stations ----
+
+```{r rank_station_arrival}
+library(dplyr)
+sumar_cat5 <- bs10 %>% 
+  dplyr::select(ride_segment, departure_station, arrival_station) %>%
+    drop_na(arrival_station) %>% 
+    group_by(ride_segment, arrival_station) %>%
+ dplyr::summarise(Total_cnt = n(),
+              Total_time = sum(Total_cnt), .groups = "drop")%>%
+    mutate( Top_rides = round((Total_cnt/sum(Total_cnt)*100), 2),
+            Top_trips = round((Total_time/sum(Total_time)*100), 2)) %>% 
+    #arrange(desc(Top_stations)) %>% 
+    slice_max(order_by = Top_trips, n=10) 
+  
+  gt(sumar_cat5)
+```
+
+## 11.3 Data distribution based on BoxPlot
+
+```{r box_plot, opts.label = "full", echo = FALSE, warning=FALSE,message=FALSE}
+fig1 <- bs10 %>% select(ride_segment, ride_time) %>% 
+  ggplot(aes(x= ride_segment,y= ride_time, fill = ride_segment, col = ride_segment))+
+  geom_boxplot(alpha= 0.5)+
+  geom_pointrange( mapping = aes(x = ride_segment, y = ride_time),
+    stat = "summary",
+    fun.mean = mean) +
+     scale_y_log10()+
+  labs(tag = "Fig. 1",
+       title = "Casual riders have wider trip distance interval")+
+   theme_clean()+theme(legend.title = element_blank(),
+                       axis.title.x = element_blank(),
+                       legend.position = "none")+
+ 
+  scale_x_discrete(labels = c("Casual\n  riders", "Subscriber\n riders"))+
+scale_y_continuous(limits = c(0, 50), breaks = c(0,  10,  15, 20, 30))
+
+fig1 + scale_fill_viridis_d() 
+```
+
+## 11.4 Data Distribution and Shape
+
+```{r hist, opts.label = "full", echo = FALSE, message=FALSE, warning=FALSE}
+fig2 <- bs10 %>%
+ggplot(aes(x = ride_time,  fill = ride_segment, col = ride_segment )) +
+  geom_histogram(alpha = .75, binwidth = 0.05) +
+    scale_x_log10() +
+  theme_clean() + theme(legend.position= c(.8, .90),legend.title = element_blank()) +
+  labs(
+    tag = "Fig. 2",
+    title = " ",
+    subtitle = "Normal Data Distribution with log10 Transformation ",
+    caption = "Source: divvy-tripdata",
+    y = "Frequency of riders",
+    x = "Ride time duration (minutes))"
+  ) +
+  scale_y_continuous(labels = number_format(scale = 1e-3, suffix = " K"))
+
+fig2 
+ 
+
+```
+
+# 12 COMUNICATING AND SHARING THE FINDINGS
+
+The following 7 questions should enable us to get some key insights out
+of the data we just analysed and summarized.
+
+what is the proportion of trips each group finished
+
+what is the proportion of trips each group cicled
+
+What are bikes rank high
+
+How the ride time varies daily
+
+How the ride time varies monthly
+
+What is the riding pattern/behaviour on business days and weekend
+
+How the riding pattern isimpacted by the season variations
+
+## 12.1 Who actually is riding more frequently?
+
+```{r rides, opts.label = "full", echo=FALSE, warning=FALSE, message=FALSE}
+tbl_overview <-   bs10 %>% 
+  select(ride_segment, ride_time) %>%
+  dplyr::group_by(ride_segment)%>%
+  dplyr::summarise(rides = n(),
+                   Total_rides = scales::comma(n()),
+                   Average_time = format(mean(ride_time), digits = 2, nsmall = 2),
+                   Median = median(ride_time), .groups = "drop") %>% 
+  mutate(Proportion = scales::percent(rides/ sum(rides)))
+
+# step2: Building the chart
+
+viz_nrides <- bs10 %>% 
+  select(ride_segment, ride_time) %>%
+  dplyr::group_by(ride_segment)%>%
+  dplyr::summarise(rides = n(),
+                   Total_rides = scales::comma(n()),
+                   Average_time = format(mean(ride_time), digits = 2, nsmall = 2),
+                   Median = median(ride_time), .groups = "drop") %>% 
+  mutate(Proportion = (rides/ sum(rides))) %>%
+  ggplot(aes(
+    y = Proportion,
+    x = ride_segment,
+    fill = ride_segment
+  )) +
+  geom_bar(
+    stat = "identity",
+    position = "dodge",
+    width = 0.6,
+    alpha = 0.8
+  )+
+
+  geom_text(aes(label = scales::percent(Proportion)),
+            colour = "black", size = 8,
+            vjust = -.15, position = position_dodge(.9)
+  ) +
+  theme_wsj() + theme(legend.position = "none",
+    legend.title = element_blank(),
+    axis.text.y  = element_blank(),
+    panel.grid = element_blank(),
+    panel.grid.major = element_blank())+
+    labs(tag = "Fig. 3",
+       title = "",
+       subtitle = "Proportion of total of Rides ",
+       caption = "Source: divvy-tripdata"
+  ) +
+  scale_x_discrete(labels = c("Casual\n Riders", "Annual\n Members"))+ #  tweaking the scales
+scale_y_continuous(limits = c(0, 0.9)) 
+  
+
+viz_nrides  
+# # Create a table plot
+# library(gridExtra)
+# 
+# tbl <- tableGrob(tbl_overview, rows=NULL)
+# # Plot chart and table into one object
+# 
+# grid.arrange(viz_nrides, tbl,
+#              nrow=2,
+#              as.table=TRUE,
+#              heights=c(5,2))
+```
+
+## 12.2. Who is ahead in trip duration.
+
+```{r trip, opts.label = "full", echo=FALSE}
+tbl_trip_duration <-   bs10 %>% 
+  
+  dplyr::select(ride_segment, ride_time) %>%
+  dplyr::group_by(ride_segment)%>%
+  dplyr::summarise(Trip_duration_hours = sum(ride_time)/60,
+                   Average_Trip_duration = format(mean(ride_time), digits = 2, nsmall = 2),
+                   Median = median(ride_time), .groups = "drop") %>% 
+  mutate(Segment_Share = (Trip_duration_hours/ sum(Trip_duration_hours)))
+
+# step 2 plotting the chart 
+
+tbl_trip <- bs10 %>% 
+  dplyr::select(ride_segment, ride_time) %>%
+  dplyr::group_by(ride_segment)%>%
+  dplyr::summarise(Trip_duration_hours = sum(ride_time)/60,
+                    Average_Trip_duration = format(mean(ride_time), digits = 2, nsmall = 2),
+                   Median = median(ride_time), .groups = "drop") %>% 
+  mutate(Segment_Share = scales::percent(Trip_duration_hours/ sum(Trip_duration_hours))) 
+
+viz_trip <- bs10 %>% 
+    select(ride_segment, ride_time) %>%
+  dplyr::group_by(ride_segment)%>%
+  dplyr::summarise(Trip_duration_hours = sum(ride_time)/60,
+                    Average_Trip_duration = format(mean(ride_time), digits = 2, nsmall = 2),
+                   Median = median(ride_time), .groups = "drop") %>% 
+  mutate(Segment_Share = (Trip_duration_hours/ sum(Trip_duration_hours))) %>%
+  ggplot(aes(
+    y = Segment_Share,
+    x = ride_segment,
+    fill = ride_segment
+  )) +
+  geom_bar(
+    stat = "identity",
+    position = "dodge",
+    width = 0.6,
+    alpha = 0.8
+  )+
+  geom_text(aes(label = scales::percent(Segment_Share)),
+            colour = "black", size = 8,
+            vjust = -.15, position = position_dodge(.9)
+  ) +
+   theme_wsj() + theme(
+    legend.title = element_blank(),
+    axis.text.y = element_blank(),
+    panel.grid = element_blank(),
+    panel.grid.major = element_blank()
+  ) +
+  labs(tag = "Fig. 4",
+       title = "   ",
+       subtitle = "Trip Duration Contribution",
+       caption = "Source: Divvy_trip.data"
+  )+
+  scale_x_discrete(labels = c("Casual\n Riders", "Annual\n Members"))+
+  scale_y_continuous(limits = c(0, 0.75))
+
+viz_trip
+# # Create a table plot
+# library(gridExtra)
+# 
+# 
+# tbl_trip <- tableGrob(tbl_trip_duration, rows=NULL)
+# # Plot chart and table into one object
+# 
+# grid.arrange(viz_trip, tbl_trip,
+#              nrow=2,
+#              as.table=TRUE,
+#            heights=c(7.5,2))
+```
+
+###### hot spot Annual members have more riding hours,although they ride in average shorter distances
+
+## 12.3. What are the most preferred bikes
+
+```{r bikes, opts.label = "full", echo = FALSE}
+library(viridis)
+library(dplyr)
+
+f5 <- bs10 %>% 
+  dplyr::select(ride_segment, ride_bike) %>% 
+  dplyr::count(ride_segment, ride_bike) %>% 
+  dplyr::mutate(n_rides =n(), .groups = "drop") %>%    
+  dplyr::mutate(perct = n/sum(n)) %>% 
+  dplyr::arrange(desc(perct))%>%
+  ggplot(aes(x=reorder(ride_segment, perct)  , y = perct, fill = ride_bike)) +
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.75) +
+    geom_text(
+    aes(label = percent(perct)),
+    colour = "black", size = 5,
+    vjust = -.15, position = position_dodge(.9)) +
+  facet_wrap(~ ride_bike) +
+  scale_y_continuous(limits = c(0, 0.45)) +
+ theme_economist_white() + theme(legend.title = element_blank(),
+        axis.text.y = element_blank(),
+        strip.text.x = element_blank(),
+        panel.grid = element_blank(),
+    panel.grid.major = element_blank()) +
+  labs(tag = "Fig. 6",
+       title ="", 
+       subtitle = "Classic bikes most preferred by members",
+       caption = "Source: Divvy_trip.data"
+  ) 
+f5 + scale_fill_viridis(discrete = TRUE)
+
+
+```
+
+###### hot spot - classic bikes most preferred (as much twice the electric) by the members.
+
+###### hot spot - riders do not reveal any pronuncied preference for between classic and electric.
+
+## 12. 4 Can we spot any consistent riding pattern?
+
+```{r trend,  opts.label = "full", echo = FALSE, warning=FALSE, message=FALSE}
+ bs10 %>%
+   select(ride_segment, ride_date, ended_ride_date, ride_month, us_seasons) %>%
+   group_by(ride_segment, ride_date, us_seasons) %>%
+   dplyr::summarise(rides = n(), .groups = "drop") %>%
+   mutate(freq = (rides / sum(rides))) %>%
+   ggplot(aes(y = freq, x = ride_date, col = ride_segment, linetype = ride_segment)) +
+   geom_jitter(shape = 21, width = .125) +
+   geom_smooth(se = F, linewidth = 1.5) +
+   scale_y_continuous(labels = percent_format()) +
+   theme_clean() + theme(
+     legend.title = element_blank(),
+     axis.title.x = element_blank(),
+     legend.position = c(0.8,0.9) ) +
+   labs(
+     tag = "Fig. 6",
+     title = "",
+     subtitle = "Rideship Variation Across The Months",
+     caption = "Source: divvy-tripdata",
+     y = "Frequency of trips"
+   )
+```
+
+## 12.5. what is the riding preference between business and week days
+
+```{r bus_weekend, opts.label = "full", echo = FALSE}
+fig7 <- bs10 %>%
+  dplyr::select(ride_segment, ride_month, ride_days) %>%
+ dplyr:: count(ride_segment, ride_days) %>%
+  dplyr::mutate(Proportion = (n / sum(n))) %>%
+  ggplot(aes(
+    x = ride_days,
+    y = Proportion,
+    fill = ride_segment
+  )) +
+  geom_col(position = "dodge", alpha = 0.75) +
+  geom_text(aes(label = percent(Proportion)),
+    size = 5,
+    position = position_dodge(width = 0.9),
+    vjust = -0.25
+  ) +
+  theme_wsj() + theme(
+    legend.title = element_blank(),
+    axis.text.y = element_blank(),
+    panel.grid = element_blank(),
+    panel.grid.major = element_blank()
+  ) +
+  labs(
+    tag = "Fig. 7",
+    title = " ",
+    subtitle = " Business days and Weekend",
+    caption = "Source: divvy-tripdata",
+    y = "Daily trips"
+  ) +
+  scale_x_discrete(labels = c("Business days", "Weekends"))+
+  scale_y_continuous(limits = c(0, .75))
+fig7 +  scale_fill_manual(values = c("skyblue", "green" )) 
+```
+
+## 12. 6. What is the pick time range
+
+```{r ride_time, opts.label = "full", warning=FALSE, echo = FALSE, message=FALSE}
+
+time_brks = seq(0, 60*60*24, 3*60*60)
+time_lbls = c("00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00", "24:00")
+
+bs10 %>% 
+  dplyr::select(ride_segment, ride_weekday, ride_date,departure_time, ride_days) %>% 
+  group_by(ride_segment, departure_time) %>% 
+ dplyr::summarise(count_rides = n(), .groups = "drop") %>% 
+  mutate(perct = count_rides/sum(count_rides)) %>% 
+  arrange(desc(perct))  %>%
+  ggplot(aes(y = perct, x = departure_time, col = ride_segment, linetype = ride_segment )) +
+  geom_smooth( linewidth = 1.5, se = F) +
+  scale_x_continuous( breaks = time_brks, labels = time_lbls) +
+  scale_y_continuous(
+    labels = percent_format())+
+  theme_clean() + theme(legend.title = element_blank(),
+        axis.text.y =  element_blank(),
+        panel.grid.major.y =  element_blank(), 
+         panel.grid.major.x = element_line(color = "#8ccde3",
+                                           size = 0.5,
+                                           linetype = 2)) + 
+  labs(  tag = "Fig. 8",
+    title = "Daily Rideship",
+    subtitle = "Pick time on bike share service",
+    caption = "Source: divvy-tripdata",
+    y = "Proportion of trips"
+  )
+```
+
+###### hot spot - subscribed members experience two period of high demand, arround 09:00 and the highest arround 18:00
+
+## 12.7. How seasonal changes impacts on the riders demand
+
+```{r viz_seasons,  opts.label = "full", echo = FALSE}
+library(ggplot2)
+library(forcats)
+library(dplyr)
+
+ bs10 %>%
+  dplyr::count(us_seasons, ride_segment) %>%
+  mutate(
+    share = n / sum(n)
+  ) %>%
+  arrange(desc(us_seasons)) %>%
+  mutate(us_seasons = fct_reorder(us_seasons, share)) %>%
+  ggplot(aes(y = share, x = us_seasons, fill = ride_segment)) +
+  geom_bar(stat = "identity", position = "dodge", show.legend = FALSE) +
+  geom_text(aes(label = percent(share)),
+    hjust = -0.3,
+    vjust = 0.3,
+    size = 4.5,
+    position = position_dodge(width = 0.9)
+  ) +
+  coord_flip() +
+  scale_y_continuous(
+    limits = c(0, 0.25),
+    breaks = scales::breaks_extended(n = 5),
+    labels = scales::label_percent()
+  ) +
+  labs(
+    tag = "Fig. 9",
+    title = "",
+    subtitle = " Riding Intensity highest in Summer",
+    caption = "Source: divvy-tripdata",
+    y = "Frequency of Rides"
+  ) +
+  theme_clean() + theme(
+    axis.title.y = element_blank(),
+    axis.text.y = element_text(angle = 60, hjust = 0.5, vjust = -0.1)
+  )
+
+```
+
+###### hot spot: Rideship is Highest in summer for both groups,declining throuh fall,spring and ultimatly the winter
+
+# TAKE AWAY INSIGTHS FROM THE CUSTOMER SEGMENT COMPARISON
+
+1.  MEMBERS USE MORE FREQUENTLY THAN CASUAL RIDERS
+
+2.  MEMBERS RIDE LESS, ON AVERAGE 10 MINTS
+
+3.  MEMBERS RIDE REGULARLY WITH PICK TIME AT 09:00 AM AND 17:00 PM
+
+4.  DURING SUMMER BOTH SEGMENTS EXPERIENCE HIGH DEMAND FOR THE BIKES
+
+5.  OUR ANALYSIS HAS LIMITED SOCIO ECONOMIC INDICATORS TO DRAW ON
+    RECOMENDATIONS FOR DATA DRIVEN BUSINESS DECISION MAKING
+
+6.  OUR ANALYSIS IS MERELY DESCRIPTIVE AND IT CAN NOT BE CONCLUSIVE
+    UNLESS IS VALIDATED WITH SOUND STATISTICAL ANALYSIS
+
+# RECOMENDATIONS FOR AN EFFECTIVE MARKETING STRATEGY TARGETED TO CASUAL RIDERS
+
+## DESIGN MEMBERSHIP OFFERS BASED ON RIDING DURATIONS
+
+Price is a decisive factor in consumer choice (what to buy ) and how
+much of it to buy .
+
+Provided they get the pricing correctly some hints to be considered
+would include :
+
+1.  To cater the group needs with differentiated offers (short and long
+    riders )
+
+2.  Design offers in line with the daily bike demand
+
+3.  Matching bike supply with the demand based on the results of dock
+    station ranking
